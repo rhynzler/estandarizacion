@@ -1,0 +1,73 @@
+---
+title: "Practica 1"
+author: "Paul Arevalo, Esteban Vizhñay"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Creamos el vector de datos
+
+```{r}
+alturas <- c(
+    1.64, 1.60, 1.54, 1.55,
+    1.73, 1.61, 1.65, 1.73,
+    1.55, 1.61, 1.62, 1.73,
+    1.56, 1.65, 1.66, 1.75,
+    1.57, 1.63, 1.76, 1.67,
+    1.58, 1.79, 1.70, 1.78,
+    1.58, 1.63, 1.69, 1.63,
+    1.52, 1.59, 1.62, 1.71,
+    1.64, 1.53, 1.60, 1.72,
+    1.54, 1.60, 1.64, 1.72
+)
+```
+
+Obtención de la media
+
+```{r}
+media_alturas <- mean(alturas)
+media_alturas
+```
+
+Obtención de la desviación estándar
+
+```{r}
+desviacion_estandar_alturas <- sd(alturas)
+desviacion_estandar_alturas
+```
+
+Tipificación de las alturas
+
+```{r}
+tipificacion_alturas <- c((alturas - media_alturas) / desviacion_estandar_alturas)
+tipificacion_alturas
+```
+
+Obtención de la media y la desviación estándar
+
+```{r}
+sprintf("%.7f", mean(tipificacion_alturas))
+sd(tipificacion_alturas)
+```
+
+Histogramas
+
+```{r}
+h <- hist(alturas, main = "Histograma de alturas")
+# Calcular los centros de los rectángulos del histograma
+centers <- h$mids
+# Agregar la línea a través de los centros de los rectángulos
+lines(centers, h$counts, type = "b", col = "red", pch = 16)
+```
+
+```{r}
+h_t <- hist(tipificacion_alturas, main = "Histograma de alturas tipificadas")
+# Calcular los centros de los rectángulos del histograma
+centers_t <- h_t$mids
+# Agregar la línea a través de los centros de los rectángulos
+lines(centers_t, h_t$counts, type = "b", col = "red", pch = 16)
+```

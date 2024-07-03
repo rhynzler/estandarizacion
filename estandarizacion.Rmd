@@ -1,0 +1,112 @@
+---
+title: "Estarización de variables"
+author: "Paúl Arévalo, Esteban Vizhñay"
+date: "2024-06-28"
+output: 
+  pdf_document:
+    extra_dependencies: ["fvextra"]
+    includes:
+      in_header: header.tex
+---
+
+## Estandarización de variables aleatorias
+
+### Definición del conjunto de datos
+
+Tenemos una muestra de las alturas de un grupo de personas
+
+``` {r}
+alturas <- c(
+  1.64, 1.60, 1.54, 1.55,
+  1.73, 1.61, 1.65, 1.73,
+  1.55, 1.61, 1.62, 1.73,
+  1.56, 1.65, 1.66, 1.75,
+  1.57, 1.63, 1.76, 1.67,
+  1.58, 1.79, 1.70, 1.78,
+  1.58, 1.63, 1.69, 1.63,
+  1.52, 1.59, 1.62, 1.71,
+  1.64, 1.53, 1.60, 1.72,
+  1.54, 1.60, 1.64, 1.72
+)
+alturas
+```
+
+### Frecuencias
+
+``` {r}
+frecuencias <- table(alturas)
+frecuencias
+```
+
+### Media de las estaturas
+
+``` {r}
+media <- mean(alturas)
+media
+```
+
+### Varianza de las estaturas
+
+``` {r}
+desviacion_estandar_alturas <- sd(alturas)
+desviacion_estandar_alturas
+```
+
+### Tipificación de las alturas
+
+```{r}
+tipificacion_alturas <- c((alturas - media) / desviacion_estandar_alturas)
+tipificacion_alturas
+```
+
+### Obtención de la media y la desviación estándar
+
+```{r}
+sprintf("%.7f", mean(tipificacion_alturas))
+sd(tipificacion_alturas)
+```
+
+### Histogramas
+
+```{r}
+h <- hist(alturas)
+# Calcular los centros de los rectángulos del histograma
+centers <- h$mids
+# Agregar la línea a través de los centros de los rectángulos
+lines(centers, h$counts, type = "b", col = "red", pch = 16)
+```
+
+```{r}
+h_t <- hist(tipificacion_alturas)
+# Calcular los centros de los rectángulos del histograma
+centers_t <- h_t$mids
+# Agregar la línea a través de los centros de los rectángulos
+lines(centers_t, h_t$counts, type = "b", col = "red", pch = 16)
+```
+
+### Estandarización de las alturas
+
+``` {r}
+estandarizaciones <- scale(alturas)
+estandarizaciones
+```
+
+### Grafico de histograma para las alturas
+
+``` {r}
+hist(alturas,
+  col = "blue", border = "black", breaks = 5,
+  main = "Histograma de la distribución de las alturas",
+  xlab = "Alturas", ylab = "Frecuencias",
+)
+```
+
+### Gráfico de histograma para las alturas normalizadas
+
+``` {r}
+hist(estandarizaciones,
+  col = "blue", border = "black",
+  main = "Histograma de la distribución de las alturas",
+  xlab = "Alturas", ylab = "Frecuencias",
+)
+```
